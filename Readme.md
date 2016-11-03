@@ -19,5 +19,6 @@
 ![](http://portfolio.jongyoonb.space/jp/wp-content/uploads/sites/2/2016/09/w3.png)
 
 Test User Information
-ID : user2 PD : 2 or Sign in
+ID : user2  
+PD : 2  
 <a href="http://jycom.asuscomm.com:6680" target="_blank">Live Preview</a>
