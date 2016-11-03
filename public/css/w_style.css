@@ -1,0 +1,63 @@
+/*=======================================
+TWEET FEED STYLES
+==================================================*/
+.twt-wrapper {
+    max-height:100%;
+    overflow:auto;
+}
+.board img {
+    width:64px;
+    height:64px;
+    border:2px solid #abadae;
+    margin-bottom: 20px;
+}
+
+.media-object {
+    width:80px;
+    height:80px;
+    border:2px solid #7f8182;
+    margin-bottom: 20px;
+}
+.board-list {
+    border-bottom:1px dashed #bcbebf;
+    margin-bottom:25px;
+}
+
+.img_writing{
+    width: 300px;
+    margin-bottom: 20px;
+
+}
+
+.time{
+    margin-bottom: 5px;
+}
+
+#wrapper {
+    width:50%;
+    min-width:85%;
+}
+#columns {
+    -webkit-column-count:2;
+    -webkit-column-gap:10px;
+    -moz-column-count:2;
+    -moz-column-gap:10px;
+    column-count:2;
+    column-gap:10px;
+}
+.card {
+    display:inline-block;
+    width:250px;
+    margin:5px;
+}
+.card img {
+    width:100%;
+}
+
+@media(min-width:1290px){
+    #columns{
+        -webkit-column-count:3;
+        -moz-column-count:3;
+        column-count:3;
+    }
+}
