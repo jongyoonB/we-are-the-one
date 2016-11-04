@@ -1,4 +1,4 @@
-#大学の同窓のSNSサービス
+#大学の同窓のSNSサービス(Team Project)
 
 ##サービス
  * 自動的に食事する人をマッチする
@@ -13,7 +13,7 @@
  * Node.js 4.3.0
 
 
-**Charge Of Part**  
+#Charge Of Part  
 
  * 自動的に食事する人をマッチモジュール  
 
