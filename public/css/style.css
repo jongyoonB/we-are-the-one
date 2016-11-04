@@ -187,14 +187,14 @@
 
 }
 .follow-img{
-    position: relative;
-    width: 150px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-right: 15px;
 }
 .follow-img-font{
-    position: relative;
     font-family: HY나무M;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 li {
@@ -223,4 +223,42 @@ hr{
 }
 .username{
     text-align: center;
+}
+.follow {
+    margin-left: 50px;
+    margin-top: 60px;
+}
+.follow_title {
+    margin-left: 30px;
+    margin-bottom: 30px;
+    font-size: 35px;
+    text-align: center;
+    padding: 0;
+    color: #5d5d5d;
+}
+
+.follow_list {
+    margin-left: 50px;
+    margin-bottom: 30px;
+    border:1px solid #b6b6b6;
+    padding: 0;
+}
+
+#follow_nick{
+    margin-top: 15px;
+    font-size: 16px;
+    color: #004c7a;
+    font-weight: bold;
+}
+#follow_info{
+    font-size: 15px;
+}
+
+#follow_button{
+    float: right;
+    margin-right: 25px;
+}
+#follow-img{
+    width: 150px;
+    height: 150px;
 }

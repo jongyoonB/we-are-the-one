@@ -13,7 +13,7 @@
 =================================================================================
 */
 
-class mail_model
+class Mail_model extends CI_Model
 {
     /* smtp 의 호스트 설정 : 아래는 gmail 일경우 */
     var $host="ssl://smtp.gmail.com";

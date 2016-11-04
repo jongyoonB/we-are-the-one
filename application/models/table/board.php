@@ -1,6 +1,6 @@
 <?php
 
-class board
+class Board extends CI_Model
 {
     public $b_con_idx = null;
     public $u_num = null;
@@ -13,7 +13,13 @@ class board
     public $ls_html = null;
     public $like_count = null;
 
-    function __construct($value)
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function set($value)
     {
         $this->b_con_idx = isset($value['b_con_idx']) ? $value['b_con_idx'] : null;
         $this->u_num = isset($value['u_num']) ? $value['u_num'] : null;

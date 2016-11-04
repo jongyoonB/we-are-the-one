@@ -1,6 +1,6 @@
 <?php
 
-class user
+class User extends CI_Model
 {
     public $u_num = null;
     public $u_id = null;
@@ -16,7 +16,12 @@ class user
     public $hash = null;
     public $activate = null;
 
-    function __construct($value)
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function set($value)
     {
         $this->u_num = isset($value['u_num']) ? $value['u_num'] : null;
         $this->u_id = isset($value['u_id']) ? $value['u_id'] : null;
@@ -32,4 +37,5 @@ class user
         $this->hash = isset($value['hash']) ? $value['hash'] : null;
         $this->activate = isset($value['activate']) ? $value['activate'] : null;
     }
+
 }

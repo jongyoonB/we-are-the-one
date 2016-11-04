@@ -1,5 +1,4 @@
 <div class="footer navbar-fixed-bottom">
-    you can copy this mvc source free.
 </div>
 
 <script src="/public/jquery-2.2.0/jquery-2.2.0.js"></script>

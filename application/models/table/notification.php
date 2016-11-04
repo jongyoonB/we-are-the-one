@@ -1,6 +1,6 @@
 <?php
 
-class notification
+class Notification extends CI_Model
 {
     public $noti_idx = null;
     public $u_num = null;
@@ -8,7 +8,12 @@ class notification
     public $noti_content = null;
     public $noti_created = null;
 
-    function __construct($value)
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function set($value)
     {
         $this->noti_idx = isset($value['noti_idx']) ? $value['noti_idx'] : null;
         $this->u_num = isset($value['u_num']) ? $value['u_num'] : null;

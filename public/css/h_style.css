@@ -8,3 +8,55 @@
     font-size: 20px;
     text-align: center;
 }
+
+.qna-table {
+    margin-left: 30px;
+    margin-top: 20px;
+    text-align: center;
+    width: 90%;
+    border-top: 2px solid #d5d5d5;
+    border-bottom: 1px solid #d5d5d5;
+
+}
+
+.panel-info {
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+th {
+    text-align: center;
+}
+
+.tnum {
+    width: 8%;
+}
+
+.ttitle {
+    width: 67%;
+}
+
+.tnick {
+    width: 12%;
+}
+
+.tdate {
+    width: 23%;
+}
+
+
+.boardtitle {
+    text-align: left;
+}
+
+.boarddate {
+    text-align: center;
+}
+
+.boardnick {
+    width: 88%;
+}
+
+.board-content {
+    height: 200px;
+}

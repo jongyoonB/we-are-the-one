@@ -1,0 +1,260 @@
+#content {
+    font-size: 4em;
+    font-family: 'Rokkitt', serif;
+    text-shadow: 1px 1px 2px black;
+    color: white;
+    text-align: right;
+    margin-top: 10%;
+}
+
+[class*='col-'] {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.login {
+    width: 350px;
+    background: #fff;
+    margin-top: 13%;
+    border-radius: 10px;
+}
+
+.login, #button {
+    float: right;
+    margin-right: 13%;
+}
+
+.mini-submenu{
+    display:none;
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid rgba(0, 0, 0, 0.9);
+    border-radius: 4px;
+    padding: 9px;
+    /*position: relative;*/
+    width: 42px;
+
+}
+
+.mini-submenu:hover{
+    cursor: pointer;
+}
+
+.mini-submenu .icon-bar {
+    border-radius: 1px;
+    display: block;
+    height: 2px;
+    width: 22px;
+    margin-top: 3px;
+}
+
+.mini-submenu .icon-bar {
+    background-color: #000;
+}
+
+#slide-submenu{
+    background: rgba(0, 0, 0, 0.45);
+    display: inline-block;
+    padding: 0 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.top {
+    width:100%;
+    height: auto;
+
+}
+
+.mid {
+    margin-top: 51px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: 20%;
+    height: auto;
+}
+
+.right {
+    width: 20%;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.right .fullW {
+    width: auto;
+}
+
+.mid .fullW {
+    width: auto;
+}
+
+.sidebar {
+    float: right;
+}
+
+.h2down {
+    margin-left: 11%;
+}
+
+.dash-unit {/*프로필 테두리*/
+    margin-bottom: 30px;
+    padding-bottom:10px;
+    border: 1px solid #383737;
+    background-image:url('../img/sep-half.png');
+    background-color: #3d3d3d;
+    height:200px;
+    width: 200px;
+}
+
+.dash-unit:hover {
+    background-color: #4f4f4f;
+    -moz-box-shadow:    3px 3px 2px 0px #151515;
+    -webkit-box-shadow: 3px 3px 2px 0px #151515;
+    box-shadow:         3px 3px 2px 0px #151515;
+
+}
+
+.dash-unit dtitle {/*프로필 제목*/
+    font-size:11px;
+    text-transform:uppercase;
+    color:#ffffff;
+    margin:8px;
+    padding:0px;
+    height:inherit
+}
+
+.dash-unit hr {/*프로필 밑줄*/
+    border: 0;
+    border-top: 1px solid #151515;
+    border-top-style: dashed;
+    margin-top:3px;
+}
+
+.dash-unit h1 {
+    font-family: 'Raleway', sans-serif;
+    font-weight:300;
+    font-size: 20px;
+    line-height: 2px;
+    letter-spacing: 0px;
+    color: #ffffff;
+    padding-top:10px;
+    padding-left:5px;
+    margin-top:2px;
+    text-align:left;
+}
+
+.dash-unit h3 {
+    font-weight:300;
+    font-size: 15px;
+    line-height: 2px;
+    letter-spacing: 0px;
+    color: #b2c831;
+    padding-top:10px;
+    padding-left:5px;
+    margin-top:2px;
+    text-align:left;
+}
+
+
+.dash-unit p {
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 16px;
+    color: inherit;
+    margin: 0 0 10px;
+    padding:5px;
+}
+
+.dash-unit bold{
+    font-family: 'Open Sans', sans-serif;
+    font-size:26px;
+    font-weight:bold;
+    color:#fff;
+    vertical-align:middle;
+}
+.content-img {/*프로필 이미지 자동 맞춤*/
+    float: right;
+    max-width: 50% ;
+    width: 100%;
+    height: auto ;
+    margin-right: 20px;
+}
+.dash-unit .icon-holder{
+    position: relative;
+    display: inline-block;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    margin-left: 17%;
+
+}
+.follow-img{
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin-right: 15px;
+}
+.follow-img-font{
+    font-family: HY나무M;
+    font-size: 100px;
+}
+
+li {
+    list-style: none;
+}
+
+#followimg-margin li{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+hr{
+    border: dashed 1px #989da0;
+}
+.profile-img{
+    position: relative;
+    width: 200px;
+    height: 250px;
+}
+.logout-font{
+    font-size: 24px;
+    color: #00a8ff;
+    margin-left: 28%;
+}
+.profile-position{
+    position: relative;
+}
+.username{
+    text-align: center;
+}
+.follow {
+    margin-left: 50px;
+    margin-top: 60px;
+}
+.follow_title {
+    margin-left: 30px;
+    margin-bottom: 30px;
+    font-size: 40px;
+    text-align: center;
+    padding: 0;
+}
+
+.follower_list {
+    margin-left: 50px;
+    margin-bottom: 30px;
+    border:1px solid #b6b6b6;
+    padding: 0;
+}
+
+#follower_nick{
+    margin-top: 15px;
+    font-size: 16px;
+    color: #004c7a;
+    font-weight: bold;
+}
+#follower_info{
+    font-size: 15px;
+}
+
+#follow_button{
+    float: right;
+    margin-right: 25px;
+}
+

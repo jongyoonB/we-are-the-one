@@ -41,6 +41,7 @@
 }
 
 .service .heading {
+    color: black;
     position: relative;
     top: 40px;
     -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);

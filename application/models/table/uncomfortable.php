@@ -1,6 +1,6 @@
 <?php
 
-class uncomfortable
+class Uncomfortable extends CI_Model
 {
     public $un_idx = null;
     public $u_num = null;
@@ -8,8 +8,12 @@ class uncomfortable
     public $un_content = null;
     public $un_date = null;
 
+    function __construct()
+    {
+        parent::__construct();
+    }
 
-    function __construct($value)
+    function set($value)
     {
         $this->un_idx =isset($value['un_idx']) ? $value['un_idx'] : null;
         $this->u_num =isset($value['u_num']) ? $value['u_num'] : null;

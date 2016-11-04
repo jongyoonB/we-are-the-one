@@ -1,15 +1,11 @@
 <?php
 
-class main_model
+class Main_model extends CI_Model
 {
-    function __construct($db)
+    function __construct()
     {
-        try {
-            $this->db = $db;
-        } catch (PDOException $e) {
-            exit("데베 연결 오류");
-        }
-    }
+        parent::__construct();
 
+    }
 
 }

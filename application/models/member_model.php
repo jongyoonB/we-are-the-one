@@ -1,92 +1,107 @@
 <?php
 
-class member_model
+class Member_model extends CI_Model
 {
-    function __construct($db)
+    function __construct()
     {
-        try {
-            $this->db = $db;
-        } catch (PDOException $e) {
-            exit("데베 연결 오류");
-        }
+        parent::__construct();
+
     }
 
     function college_list()
     {
-        $sql = "SELECT * FROM " . TABLE_COLLEGE_LIST;
-        $query = $this->db->prepare($sql);
-        $query->execute();
+        $query = $this->db->get(TABLE_COLLEGE_LIST);
 
-        return $query->fetchAll();
+        return $query->result();
     }
 
     function interest_list()
     {
-        $sql = "SELECT * FROM " . TABLE_INTEREST;
-        $query = $this->db->prepare($sql);
-        $query->execute();
+        $query = $this->db->get(TABLE_INTEREST);
 
-        return $query->fetchAll();
+        return $query->result();
     }
-
 
 
     function signUp_member($obj)
     {
         $sql = "INSERT INTO " . TABLE_USER . "(u_id , u_pass , u_nick , u_tel , u_email , u_pic , u_birth , college_num, hash, activate) ";
-        $sql .= "VALUES(:u_id , :u_pass , :u_nick , :u_tel , :u_email , :u_pic , :u_birth , :college_num, :hash, :activate)";
-        $query = $this->db->prepare($sql);
-        return $query->execute(array(':u_id' => $obj->u_id, ':u_pass' => $obj->u_pass, ':u_nick' => $obj->u_nick, ':u_tel' => $obj->u_tel, ':u_email' => $obj->u_email, ':u_pic' => $obj->u_pic, ':u_birth' => $obj->u_birth, ':college_num' => $obj->college_num, ':hash'=>md5(rand(0,1000)), ':activate'=>'0'));
+        $sql .= "VALUES(?,?,?,?,?,?,?,?,?,?)";
+        $query = $this->db->query($sql,array($obj->u_id,$obj->u_pass,$obj->u_nick,$obj->u_tel,$obj->u_email,$obj->u_pic,$obj->u_birth,$obj->college_num,md5(rand(0, 1000)),'0'));
+
+        return $query;
 
     }
 
 
-    function get_verify_info($u_num){
-	//$sql = "select u_email, hash from user where u_num = :u_num";
-	$sql = "select u_email, hash from user where u_num = $u_num";
-	$query = $this->db->prepare($sql);
-        //$query -> $this->bindParam(':u_num', $u_num);
-	$query->execute();
-	return $query->fetch();
-    }
-
-
-    function verifying_email($email, $hash){
-        $sql = "select u_email, hash, activate from user WHERE u_email= :email AND hash= :hash AND activate= 0";
-        $query = $this->db->prepare($sql);
-        $match = $query->execute(array(':email' => $email, ':hash' => $hash));
-
-        if($match>0) {
-            $sql = "UPDATE user SET activate='1' WHERE u_email= :email AND hash= :hash AND activate= 0";
-            $query = $this->db->prepare($sql);
-            return $query->execute(array(':email' => $email, ':hash' => $hash));
-        }
-        else{
-            return -1;
-        }
-
-    }
-
-
-    function college_follow_select($col_num , $value , $u_num)
+    function get_verify_info($u_num)
     {
-        if($value) {
-            $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email FROM " . TABLE_USER . " WHERE college_num = :college_num AND u_num NOT IN ($value , $u_num)";
+        //$sql = "select u_email, hash from user where u_num = :u_num";
+        $sql = "select u_email, hash from user where u_num = ?";
+        $query = $this->db->query($sql,array($u_num));
+        return $query->row();
+    }
+
+
+    function verifying_email($email, $hash)
+    {
+        $sql = "select u_email, hash, activate from user WHERE u_email= ? AND hash= ? AND activate= ?";
+        $query = $this->db->query($sql,array($email , $hash , 0));
+        $match = $query->row();
+
+//        if ($match != 0) {
+            $sql = "UPDATE user SET activate='1' WHERE u_email= ? AND hash= ? AND activate= 0";
+            $query = $this->db->query($sql,array($email,$hash));
+            return 1;
+//        } else {
+//            return -1;
+//        }
+
+    }
+
+    function select_u_num_By_u_num($u_num){
+
+	$sql = "SELECT u_num FROM " .TABLE_USER . " WHERE u_num = '$u_num'";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() == 1)
+        {
+            return $query->row()->u_num;
+        }else {
+            return null;
+        }
+    }
+
+    function select_u_num_By_u_nick($u_nick)
+    {
+        $sql = "SELECT u_num FROM " .TABLE_USER . " WHERE u_nick = '$u_nick'";
+        $query = $this->db->query($sql);
+
+        if($query->num_rows() == 1)
+        {
+            return $query->row()->u_num;
+        }else {
+            return null;
+        }
+
+    }
+
+    function college_follow_select($col_num, $value, $u_num)
+    {
+        if ($value) {
+            $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email FROM " . TABLE_USER . " WHERE college_num = ? AND u_num NOT IN ($value , $u_num)";
         } else
-            $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email FROM " . TABLE_USER . " WHERE college_num = :college_num AND u_num NOT IN ($u_num)";
+            $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email FROM " . TABLE_USER . " WHERE college_num = ? AND u_num NOT IN ($u_num)";
 
-        $query = $this->db->prepare($sql);
-        $query->execute(array(":college_num" => $col_num));
+        $query = $this->db->query($sql,array($col_num));
 
-
-        return $query->fetchAll();
+        return $query->result();
     }
 
     function member_pic_update($u_num, $u_pic)
     {
-        $sql = "UPDATE " . TABLE_USER . " SET u_pic = :u_pic WHERE u_num = :u_num";
-        $query = $this->db->prepare($sql);
-        $query->execute(array(':u_pic' => $u_pic, ':u_num' => $u_num));
+        $sql = "UPDATE " . TABLE_USER . " SET u_pic = ? WHERE u_num = ?";
+        $query = $this->db->query($sql , array($u_pic,$u_num));
 
     }
 
@@ -94,7 +109,7 @@ class member_model
     {
         $filename = strtolower($file['name']);
         $fileType = pathinfo($filename, PATHINFO_EXTENSION);
-        $target_dir =  $_SERVER['DOCUMENT_ROOT']."/public/img/u_img/";
+        $target_dir = $_SERVER['DOCUMENT_ROOT'] . "/public/img/u_img/";
         //$target_dir =  "/public/img/u_img/";
         $return_file = "/public/img/u_img/u_img_$ai.$fileType";
         $target_file = $target_dir . "u_img_$ai.$fileType";
@@ -105,7 +120,7 @@ class member_model
                 return $return_file;
             }
         } else {
-		echo "WTF";
+            echo "WTF";
             return false;
         }
     }
@@ -161,41 +176,50 @@ class member_model
     function get_Ai()
     {
         $sql = "SELECT AUTO_INCREMENT AS ai FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'sns' AND TABLE_NAME = 'user' ";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        $value = $query->fetch();
+        $query = $this->db->query($sql);
+        $value = $query->row();
         return $value->ai;
     }
-
 
 
     function insert_interest_u($value, $ai)
     {
         for ($i = 0; $i < count($value); $i++) {
-            $sql = "INSERT INTO " . TABLE_INTEREST_U . "(in_num , u_num) VALUES(:in_num , :u_num)";
-            $query = $this->db->prepare($sql);
-            $query->execute(array(":in_num" => $value[$i], ":u_num" => $ai));
+            $sql = "INSERT INTO " . TABLE_INTEREST_U . "(in_num , u_num) VALUES(? , ?)";
+            $this->db->query($sql,array($value[$i],$ai));
         }
+    }
+
+    function del_interest_u($u_num)
+    {
+        $sql = "DELETE FROM " . TABLE_INTEREST_U . " WHERE u_num = $u_num";
+        $this->db->query($sql);
+    }
+
+    function u_interest_list()
+    {
+	$sql = "SELECT u.u_num, u.in_num, i.in_name FROM ".TABLE_INTEREST_U." u, ".TABLE_INTEREST." i"." WHERE u.in_num = i.in_num";
+	$query = $this->db->query($sql);
+	return $query->result();
     }
 
 
     function signIn_Check($obj)
     {
-        $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email, activate FROM " . TABLE_USER . " WHERE u_id = :u_id AND u_pass = :u_pass ";
-        $query = $this->db->prepare($sql);
-        $query->execute(array(":u_id" => $obj->u_id, ":u_pass" => $obj->u_pass));
-        $check = $query->fetch();
+        $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email, activate FROM " . TABLE_USER . " WHERE u_id = ? AND u_pass = ? ";
+        $query = $this->db->query($sql,array($obj->u_id,$obj->u_pass));
+        $check = $query->row();
+
         return $check;
     }
 
 
     function sgoi($u_num)
     {
-        $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email FROM " . TABLE_USER . " WHERE u_num = :u_num";
-        $query = $this->db->prepare($sql);
-        $query->execute(array(":u_num" => $u_num));
+        $sql = "SELECT u_num , u_tel , u_birth ,u_nick , u_pic , college_num ,u_email FROM " . TABLE_USER . " WHERE u_num = ?";
+        $query = $this->db->query($sql,array($u_num));
 
-        return $query->fetch();
+        return $query->row();
     }
 
     function img_Update($file, $value)
@@ -203,48 +227,51 @@ class member_model
         @unlink($_SERVER['DOCUMENT_ROOT'] . $value->u_pic);
         $check = $this->pic_Upload($file, $value->u_num);
         if ($check) {
-            $sql = "UPDATE " . TABLE_USER . " SET u_pic = :u_pic WHERE u_num = :u_num";
-            $query = $this->db->prepare($sql);
-            $query->execute(array(":u_pic" => $check, ":u_num" => $value->u_num));
-
+            $sql = "UPDATE " . TABLE_USER . " SET u_pic = ? WHERE u_num = ?";
+            $this->db->query($sql,array($check,$value->u_num));
             return true;
         } else {
             return false;
         }
     }
 
+    function get_Inter()
+    {
+        $sql = "SELECT * FROM " . TABLE_INTEREST . " ORDER BY in_num";
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
+
 
     function member_Update($obj, $u_num)
     {
-        $sql = "UPDATE " . TABLE_USER . " SET u_nick = :u_nick , u_tel = :u_tel , u_email = :u_email WHERE u_num = :u_num";
-        $query = $this->db->prepare($sql);
-        $query->execute(array(":u_nick" => $obj->u_nick, ":u_tel" => $obj->u_tel, ":u_email" => $obj->u_email , ":u_num" => $u_num));
+        $sql = "UPDATE " . TABLE_USER . " SET u_nick = ? , u_tel = ? , u_email = ? WHERE u_num = ?";
+        $this->db->query($sql,array($obj->u_nick,$obj->u_tel,$obj->u_email,$u_num));
     }
 
     function select_member_u_num($u_num)
     {
-        $sql = "SELECT * FROM " . TABLE_USER . " WHERE u_num = :u_num";
-        $query = $this->db->prepare($sql);
-        $query->execute(array(":u_num" => $u_num));
+        $sql = "SELECT * FROM " . TABLE_USER . " WHERE u_num = ?";
+        $query = $this->db->query($sql , array($u_num));
 
-        return $query->fetch();
+        return $query->row();
     }
 
     function select_member_u_num_in($value)
     {
-        $sql = "SELECT u_nick , u_pic , u_birth , u_tel FROM " . TABLE_USER . " WHERE u_num IN($value)";
-        $query = $this->db->prepare($sql);
-        $query->execute();
+        $sql = "SELECT u_num , u_nick , u_pic , u_birth , u_tel FROM " . TABLE_USER . " WHERE u_num IN($value)";
+        $query = $this->db->query($sql);
 
-        return $query->fetchAll();
+        return $query->result();
     }
 
     function follower_select($u_num)
     {
-        $sql = "SELECT follow_idx , fol_u_num FROM " . TABLE_FOLLOW . " WHERE u_num = :u_num ORDER BY follow_idx DESC";
-        $query = $this->db->prepare($sql);
-        $query->execute(array(":u_num" => $u_num));
-        $value = $query->fetchAll();
+        $sql = "SELECT follow_idx , fol_u_num FROM " . TABLE_FOLLOW . " WHERE u_num = ? ORDER BY follow_idx DESC";
+        $query = $this->db->query($sql,array($u_num));
+
+        $value = $query->result();
 
         $returnValue = null;
         $qq = 0;
@@ -253,11 +280,11 @@ class member_model
                 $Arr[$qq] = $a->fol_u_num;
                 $qq++;
             }
-            for($i=0; $i < count($Arr) ; $i++) {
-                if($i == 0)
+            for ($i = 0; $i < count($Arr); $i++) {
+                if ($i == 0)
                     $returnValue = $Arr[$i];
                 else
-                    $returnValue = $returnValue.",".$Arr[$i];
+                    $returnValue = $returnValue . "," . $Arr[$i];
             }
         }
 
@@ -267,14 +294,12 @@ class member_model
     function follower_Insert($u_num, $fol_u_num)
     {
         $sql = "SELECT MAX(follow_idx) AS idx FROM " . TABLE_FOLLOW;
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        $f = $query->fetch();
+        $query = $this->db->query($sql);
+        $f = $query->row();
         $follow_idx = $f->idx + 1;
 
-        $sql = "INSERT INTO " . TABLE_FOLLOW . "(u_num , fol_u_num , follow_idx) VALUES(:u_num , :fol_u_num , :follow_idx)";
-        $query = $this->db->prepare($sql);
-        $query->execute(array(":u_num" => $u_num, ":fol_u_num" => $fol_u_num, ":follow_idx" => $follow_idx));
+        $sql = "INSERT INTO " . TABLE_FOLLOW . "(u_num , fol_u_num , follow_idx) VALUES(? , ? , ?)";
+        $this->db->query($sql,array($u_num,$fol_u_num,$follow_idx));
     }
 
 }

@@ -25,7 +25,6 @@
     }
 </style>
 
-
 <div class="container">
     <div class="row">
         <div class="content col-lg-6" id="content">WeAreTheOne</div>
@@ -83,14 +82,14 @@
                         <label class="col-md-2 control-label sr-only">휴대폰<br>번호</label>
 
                         <div class="col-md-10">
-                            <input type="text" name="u_tel" class="form-control" required>
+                            <input type="text" name="u_tel" class="form-control" value="010-0000-1111" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-2 control-label sr-only">email</label>
 
                         <div class="col-md-10">
-                            <input type="email" name="u_email" class="form-control" placeholder="학교 이메일만 사용가능" required>
+                            <input type="email" name="u_email" id="email" class="form-control" placeholder="학교 이메일만 사용가능" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -131,7 +130,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" class="btn btn-default" id="join_btn" value="가입하기">
+                    <input type="submit" id="btn_submit" class="btn btn-default" id="join_btn" value="가입하기">
                 </div>
             </form>
         </div>

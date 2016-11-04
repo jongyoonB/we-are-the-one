@@ -1,6 +1,6 @@
 <?php
 
-class comment
+class Comment extends CI_Model
 {
     public $c_idx = null;
     public $b_con_idx = null;
@@ -9,7 +9,13 @@ class comment
     public $u_num = null;
     public $like_count = null;
 
-    function __construct($value)
+
+    function __construct()
+    {
+        parent::__construct();
+    }
+
+    function set($value)
     {
         $this->c_idx = isset($value['c_idx']) ? $value['c_idx'] : null;
         $this->b_con_idx = isset($value['b_con_idx']) ? $value['b_con_idx'] : null;

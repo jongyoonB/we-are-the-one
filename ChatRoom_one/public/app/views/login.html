@@ -1,0 +1,68 @@
+<script>
+	function createXMLHttpRequest() {
+		if(window.ActiveXObject) {
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} else if(window.XMLHttpRequest) {
+			xmlHttp = new XMLHttpRequest();
+		}
+	}
+
+	function chat_info() {
+		createXMLHttpRequest();
+		var url = "http://jycom.asuscomm.com:6680/ChatRoom_one/public/app/views/chat_info.php";
+		xmlHttp.onreadystatechange = loader;
+		xmlHttp.open("GET", url, true);
+		xmlHttp.setRequestHeader('content-type', 'text/xml'); 
+		xmlHttp.send(null);
+	}
+
+	function loader() {
+		if(xmlHttp.readyState == 4) {
+			if(xmlHttp.status == 200) {
+				temp = xmlHttp.responseXML;
+
+				document.getElementById('u_nick').value = temp.getElementsByTagName('nick')[0].childNodes[0].nodeValue;
+		                document.getElementById('u_nick').setAttribute("value",temp.getElementsByTagName('nick')[0].childNodes[0].nodeValue);
+				document.getElementById('u_pic').setAttribute("ng-class",'"'+"{'avatar-selected': userAvatar==='"+temp.getElementsByTagName('pic')[0].childNodes[0].nodeValue+"', "+ "'avatar':true}",'"');
+		                document.getElementById('u_pic').setAttribute("src",temp.getElementsByTagName('pic')[0].childNodes[0].nodeValue);
+				document.getElementById('room').value = temp.getElementsByTagName('room')[0].childNodes[0].nodeValue;
+		                document.getElementById('room').setAttribute("value",temp.getElementsByTagName('room')[0].childNodes[0].nodeValue);
+				document.getElementById('enter').click();
+			}
+		}
+	}
+
+	chat_info();
+
+</script>
+
+<div class="login-box">
+    	<div class="form-group errGroup">
+	<input type="hidden" id="room" value="">
+    	</div>
+	    <div ng-class="{'form-group':true, 'has-feedback':true, 'has-error':isErrorReq}">	      	
+                <input type="hidden" id="u_nick" class="form-control" placeholder="nickname" ng-model="username" value=""  focus-me="true"/>
+	    </div>
+	    <div class="form-group has-feedback">
+	      	<div class="col-sm-12">
+	      	</div>
+	        
+	    </div>
+	 	<div class="form-group has-feedback">
+	 		<div class="avatar-thumb">
+	 			<img id="u_pic" src=""  ng-class="{'avatar-selected': userAvatar==='', 'avatar':true}" style="display: none"  />
+	 		</div>
+	    <div class="chat-box"></div>
+	    </div><!-- /Avatar Div -->
+
+        <div class="row">
+	        <div class="col-xs-12">
+	          <button type="submit" id="enter" class="btn btn-primary btn-block btn-flat" ng-click="redirect()" style="display: none"></button>
+
+	        </div><!-- /.col -->
+    	</div><!-- /.row -->
+      </div><!-- /.login-box-body -->
+    </form><!-- / form -->
+  </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->
+

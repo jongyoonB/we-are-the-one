@@ -9,39 +9,46 @@
 <script src="/public/js/jquery.magnific-popup.min.js"></script>
 <script src="/public/js/theme.js"></script>
 <script type="text/javascript" src="/public/js/jstz.main.js"></script>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<script>
-    $(function () {
+<script src="/public/js/ajax.js"></script>
 
-        $('#slide-submenu').on('click', function () {
-            $(this).closest('.list-group').fadeOut('slide', function () {
-                $('.mini-submenu').fadeIn();
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>-->
+<script>
+
+    $(document).ready(function () {
+        get_Board();
+
+        $(function () {
+            $('#slide-submenu').on('click', function () {
+                $(this).closest('.list-group').fadeOut('slide', function () {
+                    $('.mini-submenu').fadeIn();
+                });
+
             });
 
+            $('.mini-submenu').on('click', function () {
+                $(this).next('.list-group').toggle('slide');
+                $('.mini-submenu').hide();
+            })
         });
+        function setLine(txa) {
+            line = 3;//기본 줄 수
 
-        $('.mini-submenu').on('click', function () {
-            $(this).next('.list-group').toggle('slide');
-            $('.mini-submenu').hide();
-        })
-    })
-    function setLine(txa) {
-        line = 3;//기본 줄 수
+            new_line = txa.value.split("\n").length + 1;
+            if (new_line < line) new_line = line;
 
-        new_line = txa.value.split("\n").length + 1;
-        if (new_line < line) new_line = line;
+            txa.rows = new_line;
+        }
 
-        txa.rows = new_line;
-    }
-
-    $('#toggle').click(function () {
-        toggle_time_visible();
+        $('#toggle').click(function () {
+            toggle_time_visible();
+        });
+        function toggle_time_visible() {
+            document.getElementById('time').style.display = 'inline';
+            document.getElementById('toggle_submit').style.display = 'inline';
+        }
     });
-    function toggle_time_visible() {
-        document.getElementById('time').style.display = 'inline';
-        document.getElementById('toggle_submit').style.display = 'inline';
-    }
+
+
 
 </script>
 
