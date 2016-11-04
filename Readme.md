@@ -16,7 +16,10 @@
 #Charge Of Part  
 
  * 自動的に食事する人をマッチモジュール  
-
+ * MD5 Hash Tagを利用するメール認証機能  
+ * Node.jsを利用するアラームもサービス  
+ * Node.jsを利用するチャットサービス  
+ 
  * ![](http://portfolio.jongyoonb.space/jp/wp-content/uploads/sites/2/2016/09/w1.png)
 
  * ![](http://portfolio.jongyoonb.space/jp/wp-content/uploads/sites/2/2016/09/w2.png)
